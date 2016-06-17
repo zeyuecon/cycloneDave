@@ -1,0 +1,450 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/apple/360yunpan/DaveDonaldson/cycloneDave/log/0611meeting.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}17 Jun 2016, 02:23:03
+
+{com}. use "/Users/apple/360yunpan/DaveDonaldson/0511/data.firm.level.0515.dta", clear
+{txt}(Written by R)
+
+{com}. 
+. egen id = group(newf iso)
+
+. 
+. collapse log_values major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10, by(id year iso)
+
+. 
+. reghdfe log_values i.year major_storm_all_country l1 l2, absorb(iso_ id)  vce(robust)
+{res}{err}variable {bf}iso_{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. 
+. encode iso, generate(iso_)
+
+. reghdfe log_values i.year major_storm_all_country l1 l2, absorb(iso_ id)  vce(robust)
+{res}{txt}(dropped 322141 singleton observations)
+{res}{txt}(converged in 3 iterations)
+{res}
+{txt}HDFE Linear regression{col 51}Number of obs{col 67}= {res} 1,048,953
+{txt}Absorbing 2 HDFE groups{col 51}F({res}  15{txt},{res} 761388{txt}){col 67}= {res}    456.16
+{txt}Statistics robust to heteroskedasticity{col 51}Prob > F{col 67}= {res}    0.0000
+{txt}{col 51}R-squared{col 67}= {res}    0.7871
+{txt}{col 51}Adj R-squared{col 67}= {res}    0.7067
+{txt}{col 51}Within R-sq.{col 67}= {res}    0.0120
+{txt}{col 51}Root MSE{col 67}= {res}    1.4360
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}         log_values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2}-.1818765{col 33}{space 2} .0087887{col 44}{space 1}  -20.69{col 53}{space 3}0.000{col 61}{space 4} -.199102{col 74}{space 3} -.164651
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2}-.2136382{col 33}{space 2} .0093229{col 44}{space 1}  -22.92{col 53}{space 3}0.000{col 61}{space 4}-.2319107{col 74}{space 3}-.1953656
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2}-.1587392{col 33}{space 2}  .009142{col 44}{space 1}  -17.36{col 53}{space 3}0.000{col 61}{space 4}-.1766572{col 74}{space 3}-.1408213
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2}-.1494375{col 33}{space 2} .0092117{col 44}{space 1}  -16.22{col 53}{space 3}0.000{col 61}{space 4}-.1674922{col 74}{space 3}-.1313828
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2} -.066419{col 33}{space 2} .0092729{col 44}{space 1}   -7.16{col 53}{space 3}0.000{col 61}{space 4}-.0845936{col 74}{space 3}-.0482444
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2} .0340357{col 33}{space 2} .0093071{col 44}{space 1}    3.66{col 53}{space 3}0.000{col 61}{space 4} .0157942{col 74}{space 3} .0522772
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2} .2610889{col 33}{space 2} .0098468{col 44}{space 1}   26.52{col 53}{space 3}0.000{col 61}{space 4} .2417896{col 74}{space 3} .2803883
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2} .2905003{col 33}{space 2} .0110482{col 44}{space 1}   26.29{col 53}{space 3}0.000{col 61}{space 4} .2688463{col 74}{space 3} .3121543
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2} .2183944{col 33}{space 2}   .01127{col 44}{space 1}   19.38{col 53}{space 3}0.000{col 61}{space 4} .1963056{col 74}{space 3} .2404833
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} .3756626{col 33}{space 2} .0134893{col 44}{space 1}   27.85{col 53}{space 3}0.000{col 61}{space 4} .3492241{col 74}{space 3} .4021012
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2} .4587693{col 33}{space 2} .0198814{col 44}{space 1}   23.08{col 53}{space 3}0.000{col 61}{space 4} .4198024{col 74}{space 3} .4977362
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2} .5033689{col 33}{space 2} .0215871{col 44}{space 1}   23.32{col 53}{space 3}0.000{col 61}{space 4} .4610588{col 74}{space 3} .5456789
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2}-.0191942{col 33}{space 2} .0063687{col 44}{space 1}   -3.01{col 53}{space 3}0.003{col 61}{space 4}-.0316765{col 74}{space 3}-.0067118
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2}-.0575768{col 33}{space 2} .0060554{col 44}{space 1}   -9.51{col 53}{space 3}0.000{col 61}{space 4}-.0694451{col 74}{space 3}-.0457084
+{txt}{space 17}l2 {c |}{col 21}{res}{space 2} .0247408{col 33}{space 2} .0068717{col 44}{space 1}    3.60{col 53}{space 3}0.000{col 61}{space 4} .0112725{col 74}{space 3} .0382091
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+Absorbed degrees of freedom:
+{hline 20}{c TT}{hline 49}{c TRC}
+        Absorbed FE {c |}  Num. Coefs.  =   Categories  -   Redundant     {c |} 
+{hline 20}{c +}{hline 49}{c RT}
+               iso_ {c |}          217             217              0     {c |} 
+                 id {c |}       287333          287550            217     {c |} 
+{hline 20}{c BT}{hline 49}{c BRC}
+{res}
+{com}. 
+. reghdfe log_values i.year major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10, absorb(iso_ id)  vce(robust)
+{res}{txt}(dropped 322141 singleton observations)
+{res}{txt}(converged in 3 iterations)
+{res}
+{txt}HDFE Linear regression{col 51}Number of obs{col 67}= {res} 1,048,953
+{txt}Absorbing 2 HDFE groups{col 51}F({res}  23{txt},{res} 761380{txt}){col 67}= {res}    336.43
+{txt}Statistics robust to heteroskedasticity{col 51}Prob > F{col 67}= {res}    0.0000
+{txt}{col 51}R-squared{col 67}= {res}    0.7872
+{txt}{col 51}Adj R-squared{col 67}= {res}    0.7069
+{txt}{col 51}Within R-sq.{col 67}= {res}    0.0126
+{txt}{col 51}Root MSE{col 67}= {res}    1.4356
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}         log_values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2}-.1606719{col 33}{space 2} .0093126{col 44}{space 1}  -17.25{col 53}{space 3}0.000{col 61}{space 4}-.1789243{col 74}{space 3}-.1424195
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2}-.1814768{col 33}{space 2} .0096035{col 44}{space 1}  -18.90{col 53}{space 3}0.000{col 61}{space 4}-.2002993{col 74}{space 3}-.1626543
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2}-.1424645{col 33}{space 2} .0096834{col 44}{space 1}  -14.71{col 53}{space 3}0.000{col 61}{space 4}-.1614436{col 74}{space 3}-.1234855
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2}-.1100739{col 33}{space 2} .0096951{col 44}{space 1}  -11.35{col 53}{space 3}0.000{col 61}{space 4}-.1290761{col 74}{space 3}-.0910718
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2} -.011036{col 33}{space 2} .0099247{col 44}{space 1}   -1.11{col 53}{space 3}0.266{col 61}{space 4} -.030488{col 74}{space 3} .0084161
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2} .0820935{col 33}{space 2} .0099511{col 44}{space 1}    8.25{col 53}{space 3}0.000{col 61}{space 4} .0625897{col 74}{space 3} .1015972
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2} .3093659{col 33}{space 2}  .010303{col 44}{space 1}   30.03{col 53}{space 3}0.000{col 61}{space 4} .2891724{col 74}{space 3} .3295595
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2} .3498522{col 33}{space 2} .0112855{col 44}{space 1}   31.00{col 53}{space 3}0.000{col 61}{space 4} .3277329{col 74}{space 3} .3719714
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2} .2861403{col 33}{space 2} .0113431{col 44}{space 1}   25.23{col 53}{space 3}0.000{col 61}{space 4} .2639081{col 74}{space 3} .3083725
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} .4360704{col 33}{space 2} .0137474{col 44}{space 1}   31.72{col 53}{space 3}0.000{col 61}{space 4} .4091259{col 74}{space 3} .4630149
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2}  .513755{col 33}{space 2}  .019988{col 44}{space 1}   25.70{col 53}{space 3}0.000{col 61}{space 4} .4745793{col 74}{space 3} .5529308
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2} .5480173{col 33}{space 2} .0217303{col 44}{space 1}   25.22{col 53}{space 3}0.000{col 61}{space 4} .5054266{col 74}{space 3} .5906081
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2} .0328013{col 33}{space 2} .0080268{col 44}{space 1}    4.09{col 53}{space 3}0.000{col 61}{space 4} .0170691{col 74}{space 3} .0485335
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2}-.0056242{col 33}{space 2} .0084978{col 44}{space 1}   -0.66{col 53}{space 3}0.508{col 61}{space 4}-.0222795{col 74}{space 3} .0110311
+{txt}{space 17}l2 {c |}{col 21}{res}{space 2} .0808941{col 33}{space 2} .0098793{col 44}{space 1}    8.19{col 53}{space 3}0.000{col 61}{space 4} .0615309{col 74}{space 3} .1002573
+{txt}{space 17}l3 {c |}{col 21}{res}{space 2} .0806408{col 33}{space 2} .0096999{col 44}{space 1}    8.31{col 53}{space 3}0.000{col 61}{space 4} .0616293{col 74}{space 3} .0996524
+{txt}{space 17}l4 {c |}{col 21}{res}{space 2} .1364701{col 33}{space 2} .0106027{col 44}{space 1}   12.87{col 53}{space 3}0.000{col 61}{space 4} .1156892{col 74}{space 3}  .157251
+{txt}{space 17}l5 {c |}{col 21}{res}{space 2} .1615807{col 33}{space 2} .0104589{col 44}{space 1}   15.45{col 53}{space 3}0.000{col 61}{space 4} .1410816{col 74}{space 3} .1820798
+{txt}{space 17}l6 {c |}{col 21}{res}{space 2} .0649963{col 33}{space 2} .0098689{col 44}{space 1}    6.59{col 53}{space 3}0.000{col 61}{space 4} .0456534{col 74}{space 3} .0843391
+{txt}{space 17}l7 {c |}{col 21}{res}{space 2} .0798692{col 33}{space 2} .0104193{col 44}{space 1}    7.67{col 53}{space 3}0.000{col 61}{space 4} .0594477{col 74}{space 3} .1002907
+{txt}{space 17}l8 {c |}{col 21}{res}{space 2} .1147689{col 33}{space 2} .0099852{col 44}{space 1}   11.49{col 53}{space 3}0.000{col 61}{space 4} .0951982{col 74}{space 3} .1343396
+{txt}{space 17}l9 {c |}{col 21}{res}{space 2} .0346662{col 33}{space 2} .0092817{col 44}{space 1}    3.73{col 53}{space 3}0.000{col 61}{space 4} .0164744{col 74}{space 3}  .052858
+{txt}{space 16}l10 {c |}{col 21}{res}{space 2} .0222093{col 33}{space 2} .0082447{col 44}{space 1}    2.69{col 53}{space 3}0.007{col 61}{space 4}   .00605{col 74}{space 3} .0383686
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+Absorbed degrees of freedom:
+{hline 20}{c TT}{hline 49}{c TRC}
+        Absorbed FE {c |}  Num. Coefs.  =   Categories  -   Redundant     {c |} 
+{hline 20}{c +}{hline 49}{c RT}
+               iso_ {c |}          217             217              0     {c |} 
+                 id {c |}       287333          287550            217     {c |} 
+{hline 20}{c BT}{hline 49}{c BRC}
+{res}
+{com}. 
+. areg log_values i.year major_storm_all_country l1 , absorb(fi)  vce(robust)
+{err}variable {bf}fi{sf} not found
+(error in option {bf:absorb()})
+{txt}{search r(111), local:r(111);}
+
+{com}. 
+. egen fi = group(id iso)
+
+. areg log_values i.year major_storm_all_country l1 , absorb(fi)  vce(robust)
+{res}
+{txt}Linear regression, absorbing indicators{col 49}Number of obs{col 67}= {res} 1,371,094
+{txt}{col 49}F({res}  14{txt},{res} 761389{txt}){col 67}= {res}    365.22
+{txt}{col 49}Prob > F{col 67}= {res}    0.0000
+{txt}{col 49}R-squared{col 67}= {res}    0.8479
+{txt}{col 49}Adj R-squared{col 67}= {res}    0.7262
+{txt}{col 49}Root MSE{col 67}= {res}    1.4361
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}         log_values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2}-.1853959{col 33}{space 2} .0099633{col 44}{space 1}  -18.61{col 53}{space 3}0.000{col 61}{space 4}-.2049237{col 74}{space 3} -.165868
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2}-.2223281{col 33}{space 2} .0103194{col 44}{space 1}  -21.54{col 53}{space 3}0.000{col 61}{space 4}-.2425539{col 74}{space 3}-.2021024
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2}-.1662384{col 33}{space 2} .0102579{col 44}{space 1}  -16.21{col 53}{space 3}0.000{col 61}{space 4}-.1863435{col 74}{space 3}-.1461333
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2}-.1502955{col 33}{space 2} .0105301{col 44}{space 1}  -14.27{col 53}{space 3}0.000{col 61}{space 4}-.1709341{col 74}{space 3}-.1296568
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2}-.0675027{col 33}{space 2}  .010595{col 44}{space 1}   -6.37{col 53}{space 3}0.000{col 61}{space 4}-.0882687{col 74}{space 3}-.0467368
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2} .0316277{col 33}{space 2} .0106172{col 44}{space 1}    2.98{col 53}{space 3}0.003{col 61}{space 4} .0108182{col 74}{space 3} .0524371
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2} .2577438{col 33}{space 2} .0112581{col 44}{space 1}   22.89{col 53}{space 3}0.000{col 61}{space 4} .2356783{col 74}{space 3} .2798092
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2}  .281952{col 33}{space 2} .0128091{col 44}{space 1}   22.01{col 53}{space 3}0.000{col 61}{space 4} .2568467{col 74}{space 3} .3070574
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2} .2090456{col 33}{space 2} .0131893{col 44}{space 1}   15.85{col 53}{space 3}0.000{col 61}{space 4}  .183195{col 74}{space 3} .2348963
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} .3701404{col 33}{space 2} .0154503{col 44}{space 1}   23.96{col 53}{space 3}0.000{col 61}{space 4} .3398583{col 74}{space 3} .4004226
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2} .4526192{col 33}{space 2} .0227424{col 44}{space 1}   19.90{col 53}{space 3}0.000{col 61}{space 4} .4080449{col 74}{space 3} .4971935
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2} .4968011{col 33}{space 2} .0246905{col 44}{space 1}   20.12{col 53}{space 3}0.000{col 61}{space 4} .4484086{col 74}{space 3} .5451936
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2}-.0279074{col 33}{space 2} .0065232{col 44}{space 1}   -4.28{col 53}{space 3}0.000{col 61}{space 4}-.0406926{col 74}{space 3}-.0151223
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2}-.0591352{col 33}{space 2}  .006862{col 44}{space 1}   -8.62{col 53}{space 3}0.000{col 61}{space 4}-.0725846{col 74}{space 3}-.0456858
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 10.22748{col 33}{space 2} .0090817{col 44}{space 1} 1126.17{col 53}{space 3}0.000{col 61}{space 4} 10.20968{col 74}{space 3} 10.24528
+{txt}{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+                 fi {c |}   absorbed                                  (609691 categories)
+
+{com}. 
+. areg log_values i.year major_storm_all_country l1 l2, absorb(fi)  vce(robust)
+{res}
+{txt}Linear regression, absorbing indicators{col 49}Number of obs{col 67}= {res} 1,371,094
+{txt}{col 49}F({res}  15{txt},{res} 761388{txt}){col 67}= {res}    348.99
+{txt}{col 49}Prob > F{col 67}= {res}    0.0000
+{txt}{col 49}R-squared{col 67}= {res}    0.8479
+{txt}{col 49}Adj R-squared{col 67}= {res}    0.7262
+{txt}{col 49}Root MSE{col 67}= {res}    1.4360
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}         log_values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2}-.1818765{col 33}{space 2}  .010048{col 44}{space 1}  -18.10{col 53}{space 3}0.000{col 61}{space 4}-.2015702{col 74}{space 3}-.1621828
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2}-.2136382{col 33}{space 2} .0106587{col 44}{space 1}  -20.04{col 53}{space 3}0.000{col 61}{space 4}-.2345289{col 74}{space 3}-.1927474
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2}-.1587392{col 33}{space 2} .0104519{col 44}{space 1}  -15.19{col 53}{space 3}0.000{col 61}{space 4}-.1792246{col 74}{space 3}-.1382539
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2}-.1494375{col 33}{space 2} .0105317{col 44}{space 1}  -14.19{col 53}{space 3}0.000{col 61}{space 4}-.1700792{col 74}{space 3}-.1287958
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2} -.066419{col 33}{space 2} .0106016{col 44}{space 1}   -6.27{col 53}{space 3}0.000{col 61}{space 4}-.0871978{col 74}{space 3}-.0456402
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2} .0340357{col 33}{space 2} .0106407{col 44}{space 1}    3.20{col 53}{space 3}0.001{col 61}{space 4} .0131804{col 74}{space 3}  .054891
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2} .2610889{col 33}{space 2} .0112577{col 44}{space 1}   23.19{col 53}{space 3}0.000{col 61}{space 4} .2390242{col 74}{space 3} .2831536
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2} .2905003{col 33}{space 2} .0126312{col 44}{space 1}   23.00{col 53}{space 3}0.000{col 61}{space 4} .2657435{col 74}{space 3} .3152571
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2} .2183944{col 33}{space 2} .0128849{col 44}{space 1}   16.95{col 53}{space 3}0.000{col 61}{space 4} .1931405{col 74}{space 3} .2436483
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} .3756626{col 33}{space 2} .0154221{col 44}{space 1}   24.36{col 53}{space 3}0.000{col 61}{space 4} .3454358{col 74}{space 3} .4058895
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2} .4587693{col 33}{space 2} .0227302{col 44}{space 1}   20.18{col 53}{space 3}0.000{col 61}{space 4} .4142189{col 74}{space 3} .5033197
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2} .5033689{col 33}{space 2} .0246803{col 44}{space 1}   20.40{col 53}{space 3}0.000{col 61}{space 4} .4549963{col 74}{space 3} .5517414
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2}-.0191942{col 33}{space 2} .0072812{col 44}{space 1}   -2.64{col 53}{space 3}0.008{col 61}{space 4}-.0334651{col 74}{space 3}-.0049232
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2}-.0575768{col 33}{space 2} .0069231{col 44}{space 1}   -8.32{col 53}{space 3}0.000{col 61}{space 4}-.0711457{col 74}{space 3}-.0440078
+{txt}{space 17}l2 {c |}{col 21}{res}{space 2} .0247408{col 33}{space 2} .0078563{col 44}{space 1}    3.15{col 53}{space 3}0.002{col 61}{space 4} .0093427{col 74}{space 3} .0401389
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 10.21518{col 33}{space 2} .0097477{col 44}{space 1} 1047.96{col 53}{space 3}0.000{col 61}{space 4} 10.19607{col 74}{space 3} 10.23428
+{txt}{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+                 fi {c |}   absorbed                                  (609691 categories)
+
+{com}. 
+. areg log_values i.year major_storm_all_country l1 l2 l3, absorb(fi)  vce(robust)
+{res}
+{txt}Linear regression, absorbing indicators{col 49}Number of obs{col 67}= {res} 1,371,094
+{txt}{col 49}F({res}  16{txt},{res} 761387{txt}){col 67}= {res}    327.24
+{txt}{col 49}Prob > F{col 67}= {res}    0.0000
+{txt}{col 49}R-squared{col 67}= {res}    0.8479
+{txt}{col 49}Adj R-squared{col 67}= {res}    0.7262
+{txt}{col 49}Root MSE{col 67}= {res}    1.4360
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}         log_values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2}-.1822262{col 33}{space 2}  .010043{col 44}{space 1}  -18.14{col 53}{space 3}0.000{col 61}{space 4}-.2019102{col 74}{space 3}-.1625422
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2}-.2141046{col 33}{space 2} .0106739{col 44}{space 1}  -20.06{col 53}{space 3}0.000{col 61}{space 4}-.2350252{col 74}{space 3} -.193184
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2} -.160374{col 33}{space 2}   .01061{col 44}{space 1}  -15.12{col 53}{space 3}0.000{col 61}{space 4}-.1811694{col 74}{space 3}-.1395787
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2}-.1509434{col 33}{space 2} .0105708{col 44}{space 1}  -14.28{col 53}{space 3}0.000{col 61}{space 4}-.1716618{col 74}{space 3} -.130225
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2}-.0663527{col 33}{space 2} .0106033{col 44}{space 1}   -6.26{col 53}{space 3}0.000{col 61}{space 4}-.0871348{col 74}{space 3}-.0455706
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2} .0337405{col 33}{space 2} .0106438{col 44}{space 1}    3.17{col 53}{space 3}0.002{col 61}{space 4}  .012879{col 74}{space 3}  .054602
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2} .2605112{col 33}{space 2} .0112425{col 44}{space 1}   23.17{col 53}{space 3}0.000{col 61}{space 4} .2384764{col 74}{space 3} .2825461
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2} .2901273{col 33}{space 2}  .012623{col 44}{space 1}   22.98{col 53}{space 3}0.000{col 61}{space 4} .2653867{col 74}{space 3} .3148679
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2}  .216521{col 33}{space 2} .0128063{col 44}{space 1}   16.91{col 53}{space 3}0.000{col 61}{space 4} .1914211{col 74}{space 3} .2416209
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} .3747334{col 33}{space 2} .0154003{col 44}{space 1}   24.33{col 53}{space 3}0.000{col 61}{space 4} .3445492{col 74}{space 3} .4049175
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2} .4581154{col 33}{space 2} .0227211{col 44}{space 1}   20.16{col 53}{space 3}0.000{col 61}{space 4} .4135828{col 74}{space 3} .5026481
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2} .5024801{col 33}{space 2} .0246752{col 44}{space 1}   20.36{col 53}{space 3}0.000{col 61}{space 4} .4541176{col 74}{space 3} .5508426
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2}-.0201871{col 33}{space 2} .0075297{col 44}{space 1}   -2.68{col 53}{space 3}0.007{col 61}{space 4}-.0349452{col 74}{space 3}-.0054291
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2} -.059839{col 33}{space 2}  .007481{col 44}{space 1}   -8.00{col 53}{space 3}0.000{col 61}{space 4}-.0745015{col 74}{space 3}-.0451764
+{txt}{space 17}l2 {c |}{col 21}{res}{space 2} .0249155{col 33}{space 2} .0078235{col 44}{space 1}    3.18{col 53}{space 3}0.001{col 61}{space 4} .0095817{col 74}{space 3} .0402492
+{txt}{space 17}l3 {c |}{col 21}{res}{space 2} -.006152{col 33}{space 2} .0076613{col 44}{space 1}   -0.80{col 53}{space 3}0.422{col 61}{space 4}-.0211679{col 74}{space 3} .0088639
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 10.21805{col 33}{space 2} .0103909{col 44}{space 1}  983.36{col 53}{space 3}0.000{col 61}{space 4} 10.19768{col 74}{space 3} 10.23841
+{txt}{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+                 fi {c |}   absorbed                                  (609691 categories)
+
+{com}. 
+. areg log_values i.year major_storm_all_country l1 l2 l3 l4 l5, absorb(fi)  vce(robust)
+{res}
+{txt}Linear regression, absorbing indicators{col 49}Number of obs{col 67}= {res} 1,371,094
+{txt}{col 49}F({res}  18{txt},{res} 761385{txt}){col 67}= {res}    297.82
+{txt}{col 49}Prob > F{col 67}= {res}    0.0000
+{txt}{col 49}R-squared{col 67}= {res}    0.8480
+{txt}{col 49}Adj R-squared{col 67}= {res}    0.7263
+{txt}{col 49}Root MSE{col 67}= {res}    1.4358
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}         log_values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2}-.1518833{col 33}{space 2} .0101786{col 44}{space 1}  -14.92{col 53}{space 3}0.000{col 61}{space 4}-.1718329{col 74}{space 3}-.1319336
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2}-.1801173{col 33}{space 2} .0107991{col 44}{space 1}  -16.68{col 53}{space 3}0.000{col 61}{space 4}-.2012831{col 74}{space 3}-.1589514
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2}-.1300414{col 33}{space 2} .0107602{col 44}{space 1}  -12.09{col 53}{space 3}0.000{col 61}{space 4} -.151131{col 74}{space 3}-.1089517
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2}-.1056461{col 33}{space 2} .0109625{col 44}{space 1}   -9.64{col 53}{space 3}0.000{col 61}{space 4}-.1271322{col 74}{space 3}  -.08416
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2}-.0086257{col 33}{space 2} .0109998{col 44}{space 1}   -0.78{col 53}{space 3}0.433{col 61}{space 4} -.030185{col 74}{space 3} .0129335
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2}  .081995{col 33}{space 2} .0109482{col 44}{space 1}    7.49{col 53}{space 3}0.000{col 61}{space 4} .0605368{col 74}{space 3} .1034531
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2}  .294822{col 33}{space 2} .0113973{col 44}{space 1}   25.87{col 53}{space 3}0.000{col 61}{space 4} .2724836{col 74}{space 3} .3171604
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2} .3208539{col 33}{space 2} .0126892{col 44}{space 1}   25.29{col 53}{space 3}0.000{col 61}{space 4} .2959834{col 74}{space 3} .3457244
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2} .2579076{col 33}{space 2} .0129083{col 44}{space 1}   19.98{col 53}{space 3}0.000{col 61}{space 4} .2326077{col 74}{space 3} .2832076
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} .4237007{col 33}{space 2} .0155807{col 44}{space 1}   27.19{col 53}{space 3}0.000{col 61}{space 4}  .393163{col 74}{space 3} .4542385
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2} .5047428{col 33}{space 2} .0227975{col 44}{space 1}   22.14{col 53}{space 3}0.000{col 61}{space 4} .4600605{col 74}{space 3} .5494251
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2}  .542098{col 33}{space 2} .0247324{col 44}{space 1}   21.92{col 53}{space 3}0.000{col 61}{space 4} .4936233{col 74}{space 3} .5905726
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2} .0375143{col 33}{space 2} .0091723{col 44}{space 1}    4.09{col 53}{space 3}0.000{col 61}{space 4} .0195369{col 74}{space 3} .0554917
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2} .0059576{col 33}{space 2} .0088921{col 44}{space 1}    0.67{col 53}{space 3}0.503{col 61}{space 4}-.0114707{col 74}{space 3} .0233859
+{txt}{space 17}l2 {c |}{col 21}{res}{space 2} .0893476{col 33}{space 2} .0096068{col 44}{space 1}    9.30{col 53}{space 3}0.000{col 61}{space 4} .0705186{col 74}{space 3} .1081767
+{txt}{space 17}l3 {c |}{col 21}{res}{space 2}  .050556{col 33}{space 2} .0089938{col 44}{space 1}    5.62{col 53}{space 3}0.000{col 61}{space 4} .0329285{col 74}{space 3} .0681836
+{txt}{space 17}l4 {c |}{col 21}{res}{space 2} .0952501{col 33}{space 2} .0094738{col 44}{space 1}   10.05{col 53}{space 3}0.000{col 61}{space 4} .0766817{col 74}{space 3} .1138184
+{txt}{space 17}l5 {c |}{col 21}{res}{space 2} .1113909{col 33}{space 2} .0089185{col 44}{space 1}   12.49{col 53}{space 3}0.000{col 61}{space 4}  .093911{col 74}{space 3} .1288709
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 10.07152{col 33}{space 2} .0148751{col 44}{space 1}  677.07{col 53}{space 3}0.000{col 61}{space 4} 10.04237{col 74}{space 3} 10.10068
+{txt}{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+                 fi {c |}   absorbed                                  (609691 categories)
+
+{com}. areg log_values i.year major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10, absorb(fi)  vce(robust)
+{res}
+{txt}Linear regression, absorbing indicators{col 49}Number of obs{col 67}= {res} 1,371,094
+{txt}{col 49}F({res}  23{txt},{res} 761380{txt}){col 67}= {res}    257.39
+{txt}{col 49}Prob > F{col 67}= {res}    0.0000
+{txt}{col 49}R-squared{col 67}= {res}    0.8480
+{txt}{col 49}Adj R-squared{col 67}= {res}    0.7263
+{txt}{col 49}Root MSE{col 67}= {res}    1.4356
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}         log_values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2}-.1606719{col 33}{space 2}  .010647{col 44}{space 1}  -15.09{col 53}{space 3}0.000{col 61}{space 4}-.1815397{col 74}{space 3}-.1398041
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2}-.1814768{col 33}{space 2} .0109795{col 44}{space 1}  -16.53{col 53}{space 3}0.000{col 61}{space 4}-.2029963{col 74}{space 3}-.1599573
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2}-.1424645{col 33}{space 2} .0110709{col 44}{space 1}  -12.87{col 53}{space 3}0.000{col 61}{space 4}-.1641631{col 74}{space 3} -.120766
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2}-.1100739{col 33}{space 2} .0110843{col 44}{space 1}   -9.93{col 53}{space 3}0.000{col 61}{space 4}-.1317989{col 74}{space 3} -.088349
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2} -.011036{col 33}{space 2} .0113468{col 44}{space 1}   -0.97{col 53}{space 3}0.331{col 61}{space 4}-.0332752{col 74}{space 3} .0112033
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2} .0820935{col 33}{space 2} .0113769{col 44}{space 1}    7.22{col 53}{space 3}0.000{col 61}{space 4}  .059795{col 74}{space 3} .1043919
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2} .3093659{col 33}{space 2} .0117793{col 44}{space 1}   26.26{col 53}{space 3}0.000{col 61}{space 4} .2862789{col 74}{space 3}  .332453
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2} .3498522{col 33}{space 2} .0129026{col 44}{space 1}   27.11{col 53}{space 3}0.000{col 61}{space 4} .3245635{col 74}{space 3} .3751408
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2} .2861403{col 33}{space 2} .0129685{col 44}{space 1}   22.06{col 53}{space 3}0.000{col 61}{space 4} .2607225{col 74}{space 3} .3115581
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} .4360704{col 33}{space 2} .0157173{col 44}{space 1}   27.74{col 53}{space 3}0.000{col 61}{space 4} .4052651{col 74}{space 3} .4668757
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2}  .513755{col 33}{space 2}  .022852{col 44}{space 1}   22.48{col 53}{space 3}0.000{col 61}{space 4} .4689658{col 74}{space 3} .5585443
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2} .5480173{col 33}{space 2}  .024844{col 44}{space 1}   22.06{col 53}{space 3}0.000{col 61}{space 4} .4993238{col 74}{space 3} .5967108
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2} .0328013{col 33}{space 2} .0091769{col 44}{space 1}    3.57{col 53}{space 3}0.000{col 61}{space 4} .0148149{col 74}{space 3} .0507878
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2}-.0056242{col 33}{space 2} .0097154{col 44}{space 1}   -0.58{col 53}{space 3}0.563{col 61}{space 4} -.024666{col 74}{space 3} .0134176
+{txt}{space 17}l2 {c |}{col 21}{res}{space 2} .0808941{col 33}{space 2} .0112949{col 44}{space 1}    7.16{col 53}{space 3}0.000{col 61}{space 4} .0587563{col 74}{space 3} .1030318
+{txt}{space 17}l3 {c |}{col 21}{res}{space 2} .0806408{col 33}{space 2} .0110898{col 44}{space 1}    7.27{col 53}{space 3}0.000{col 61}{space 4} .0589052{col 74}{space 3} .1023765
+{txt}{space 17}l4 {c |}{col 21}{res}{space 2} .1364701{col 33}{space 2} .0121219{col 44}{space 1}   11.26{col 53}{space 3}0.000{col 61}{space 4} .1127116{col 74}{space 3} .1602287
+{txt}{space 17}l5 {c |}{col 21}{res}{space 2} .1615807{col 33}{space 2} .0119575{col 44}{space 1}   13.51{col 53}{space 3}0.000{col 61}{space 4} .1381443{col 74}{space 3} .1850171
+{txt}{space 17}l6 {c |}{col 21}{res}{space 2} .0649963{col 33}{space 2}  .011283{col 44}{space 1}    5.76{col 53}{space 3}0.000{col 61}{space 4} .0428819{col 74}{space 3} .0871107
+{txt}{space 17}l7 {c |}{col 21}{res}{space 2} .0798692{col 33}{space 2} .0119123{col 44}{space 1}    6.70{col 53}{space 3}0.000{col 61}{space 4} .0565216{col 74}{space 3} .1032168
+{txt}{space 17}l8 {c |}{col 21}{res}{space 2} .1147689{col 33}{space 2}  .011416{col 44}{space 1}   10.05{col 53}{space 3}0.000{col 61}{space 4}  .092394{col 74}{space 3} .1371438
+{txt}{space 17}l9 {c |}{col 21}{res}{space 2} .0346662{col 33}{space 2} .0106116{col 44}{space 1}    3.27{col 53}{space 3}0.001{col 61}{space 4} .0138678{col 74}{space 3} .0554646
+{txt}{space 16}l10 {c |}{col 21}{res}{space 2} .0222093{col 33}{space 2}  .009426{col 44}{space 1}    2.36{col 53}{space 3}0.018{col 61}{space 4} .0037346{col 74}{space 3} .0406841
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 9.964698{col 33}{space 2} .0216469{col 44}{space 1}  460.33{col 53}{space 3}0.000{col 61}{space 4}  9.92227{col 74}{space 3} 10.00712
+{txt}{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+                 fi {c |}   absorbed                                  (609691 categories)
+
+{com}. use "/Users/apple/Downloads/all.country.export.storm.both.dta", clear
+{txt}(Written by R)
+
+{com}. egen ij = group(iso export_iso)
+
+. areg values i.year major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10, absorb(ij)  vce(robust)
+{res}
+{txt}Linear regression, absorbing indicators{col 49}Number of obs{col 67}= {res}    12,152
+{txt}{col 49}F({res}  23{txt},{res}  10173{txt}){col 67}= {res}     62.01
+{txt}{col 49}Prob > F{col 67}= {res}    0.0000
+{txt}{col 49}R-squared{col 67}= {res}    0.8712
+{txt}{col 49}Adj R-squared{col 67}= {res}    0.8461
+{txt}{col 49}Root MSE{col 67}= {res}    1.3794
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}             values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2}-.1052733{col 33}{space 2} .0876852{col 44}{space 1}   -1.20{col 53}{space 3}0.230{col 61}{space 4}-.2771537{col 74}{space 3} .0666071
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2}-.0738705{col 33}{space 2} .0838007{col 44}{space 1}   -0.88{col 53}{space 3}0.378{col 61}{space 4}-.2381365{col 74}{space 3} .0903954
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2} .1607305{col 33}{space 2} .0798074{col 44}{space 1}    2.01{col 53}{space 3}0.044{col 61}{space 4} .0042922{col 74}{space 3} .3171688
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2} .2272672{col 33}{space 2} .0828201{col 44}{space 1}    2.74{col 53}{space 3}0.006{col 61}{space 4} .0649235{col 74}{space 3} .3896109
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2} .6404282{col 33}{space 2} .0787216{col 44}{space 1}    8.14{col 53}{space 3}0.000{col 61}{space 4} .4861184{col 74}{space 3} .7947381
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2} .8244276{col 33}{space 2} .0784366{col 44}{space 1}   10.51{col 53}{space 3}0.000{col 61}{space 4} .6706764{col 74}{space 3} .9781788
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2} 1.147795{col 33}{space 2}  .081153{col 44}{space 1}   14.14{col 53}{space 3}0.000{col 61}{space 4}  .988719{col 74}{space 3} 1.306871
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2} 1.312511{col 33}{space 2} .0797758{col 44}{space 1}   16.45{col 53}{space 3}0.000{col 61}{space 4} 1.156135{col 74}{space 3} 1.468887
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2} 1.095683{col 33}{space 2} .0816544{col 44}{space 1}   13.42{col 53}{space 3}0.000{col 61}{space 4} .9356247{col 74}{space 3} 1.255742
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} 1.462608{col 33}{space 2} .0902958{col 44}{space 1}   16.20{col 53}{space 3}0.000{col 61}{space 4}  1.28561{col 74}{space 3} 1.639605
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2} 1.858775{col 33}{space 2} .1139801{col 44}{space 1}   16.31{col 53}{space 3}0.000{col 61}{space 4} 1.635351{col 74}{space 3} 2.082198
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2} 1.801884{col 33}{space 2} .1194925{col 44}{space 1}   15.08{col 53}{space 3}0.000{col 61}{space 4} 1.567655{col 74}{space 3} 2.036113
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2} .0816831{col 33}{space 2} .0695257{col 44}{space 1}    1.17{col 53}{space 3}0.240{col 61}{space 4} -.054601{col 74}{space 3} .2179671
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2} .0508277{col 33}{space 2} .0696119{col 44}{space 1}    0.73{col 53}{space 3}0.465{col 61}{space 4}-.0856254{col 74}{space 3} .1872808
+{txt}{space 17}l2 {c |}{col 21}{res}{space 2} .1296971{col 33}{space 2} .0725119{col 44}{space 1}    1.79{col 53}{space 3}0.074{col 61}{space 4}-.0124405{col 74}{space 3} .2718347
+{txt}{space 17}l3 {c |}{col 21}{res}{space 2}-.0277568{col 33}{space 2}  .069204{col 44}{space 1}   -0.40{col 53}{space 3}0.688{col 61}{space 4}-.1634104{col 74}{space 3} .1078967
+{txt}{space 17}l4 {c |}{col 21}{res}{space 2}-.0185403{col 33}{space 2} .0787499{col 44}{space 1}   -0.24{col 53}{space 3}0.814{col 61}{space 4}-.1729057{col 74}{space 3} .1358251
+{txt}{space 17}l5 {c |}{col 21}{res}{space 2} .0252926{col 33}{space 2} .0770929{col 44}{space 1}    0.33{col 53}{space 3}0.743{col 61}{space 4}-.1258247{col 74}{space 3}   .17641
+{txt}{space 17}l6 {c |}{col 21}{res}{space 2}-.0665008{col 33}{space 2} .0700661{col 44}{space 1}   -0.95{col 53}{space 3}0.343{col 61}{space 4}-.2038442{col 74}{space 3} .0708425
+{txt}{space 17}l7 {c |}{col 21}{res}{space 2}-.1963584{col 33}{space 2} .0756175{col 44}{space 1}   -2.60{col 53}{space 3}0.009{col 61}{space 4}-.3445835{col 74}{space 3}-.0481332
+{txt}{space 17}l8 {c |}{col 21}{res}{space 2}-.1413764{col 33}{space 2} .0771274{col 44}{space 1}   -1.83{col 53}{space 3}0.067{col 61}{space 4}-.2925612{col 74}{space 3} .0098085
+{txt}{space 17}l9 {c |}{col 21}{res}{space 2}-.1739444{col 33}{space 2} .0700921{col 44}{space 1}   -2.48{col 53}{space 3}0.013{col 61}{space 4}-.3113387{col 74}{space 3}  -.03655
+{txt}{space 16}l10 {c |}{col 21}{res}{space 2}-.0158485{col 33}{space 2} .0677986{col 44}{space 1}   -0.23{col 53}{space 3}0.815{col 61}{space 4}-.1487472{col 74}{space 3} .1170501
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 12.91404{col 33}{space 2} .0723081{col 44}{space 1}  178.60{col 53}{space 3}0.000{col 61}{space 4}  12.7723{col 74}{space 3} 13.05578
+{txt}{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+                 ij {c |}   absorbed                                    (1956 categories)
+
+{com}. 
+. areg values i.year major_storm_all_country l1 l2 l3 l4 l5, absorb(ij)  vce(robust)
+{res}
+{txt}Linear regression, absorbing indicators{col 49}Number of obs{col 67}= {res}    12,152
+{txt}{col 49}F({res}  18{txt},{res}  10178{txt}){col 67}= {res}     78.90
+{txt}{col 49}Prob > F{col 67}= {res}    0.0000
+{txt}{col 49}R-squared{col 67}= {res}    0.8710
+{txt}{col 49}Adj R-squared{col 67}= {res}    0.8461
+{txt}{col 49}Root MSE{col 67}= {res}    1.3798
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}             values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2}-.1072709{col 33}{space 2} .0877545{col 44}{space 1}   -1.22{col 53}{space 3}0.222{col 61}{space 4} -.279287{col 74}{space 3} .0647453
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2}-.0749725{col 33}{space 2} .0838074{col 44}{space 1}   -0.89{col 53}{space 3}0.371{col 61}{space 4}-.2392515{col 74}{space 3} .0893065
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2} .1569636{col 33}{space 2} .0798649{col 44}{space 1}    1.97{col 53}{space 3}0.049{col 61}{space 4} .0004127{col 74}{space 3} .3135146
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2} .2236427{col 33}{space 2} .0828279{col 44}{space 1}    2.70{col 53}{space 3}0.007{col 61}{space 4} .0612836{col 74}{space 3} .3860017
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2} .6346232{col 33}{space 2} .0785537{col 44}{space 1}    8.08{col 53}{space 3}0.000{col 61}{space 4} .4806425{col 74}{space 3}  .788604
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2} .8228461{col 33}{space 2}  .078462{col 44}{space 1}   10.49{col 53}{space 3}0.000{col 61}{space 4}  .669045{col 74}{space 3} .9766471
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2} 1.138023{col 33}{space 2} .0810538{col 44}{space 1}   14.04{col 53}{space 3}0.000{col 61}{space 4} .9791418{col 74}{space 3} 1.296905
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2}  1.30987{col 33}{space 2} .0797713{col 44}{space 1}   16.42{col 53}{space 3}0.000{col 61}{space 4} 1.153503{col 74}{space 3} 1.466238
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2} 1.091271{col 33}{space 2} .0816654{col 44}{space 1}   13.36{col 53}{space 3}0.000{col 61}{space 4} .9311909{col 74}{space 3} 1.251352
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} 1.464878{col 33}{space 2}  .090262{col 44}{space 1}   16.23{col 53}{space 3}0.000{col 61}{space 4} 1.287946{col 74}{space 3} 1.641809
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2}  1.85224{col 33}{space 2} .1138104{col 44}{space 1}   16.27{col 53}{space 3}0.000{col 61}{space 4}  1.62915{col 74}{space 3} 2.075331
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2} 1.794572{col 33}{space 2} .1193206{col 44}{space 1}   15.04{col 53}{space 3}0.000{col 61}{space 4}  1.56068{col 74}{space 3} 2.028464
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2} .1171763{col 33}{space 2} .0689482{col 44}{space 1}    1.70{col 53}{space 3}0.089{col 61}{space 4}-.0179758{col 74}{space 3} .2523283
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2} .0736312{col 33}{space 2} .0689809{col 44}{space 1}    1.07{col 53}{space 3}0.286{col 61}{space 4} -.061585{col 74}{space 3} .2088474
+{txt}{space 17}l2 {c |}{col 21}{res}{space 2}  .165151{col 33}{space 2} .0709609{col 44}{space 1}    2.33{col 53}{space 3}0.020{col 61}{space 4} .0260537{col 74}{space 3} .3042484
+{txt}{space 17}l3 {c |}{col 21}{res}{space 2} .0076757{col 33}{space 2} .0679548{col 44}{space 1}    0.11{col 53}{space 3}0.910{col 61}{space 4}-.1255292{col 74}{space 3} .1408806
+{txt}{space 17}l4 {c |}{col 21}{res}{space 2} .0449867{col 33}{space 2} .0747789{col 44}{space 1}    0.60{col 53}{space 3}0.547{col 61}{space 4}-.1015947{col 74}{space 3}  .191568
+{txt}{space 17}l5 {c |}{col 21}{res}{space 2} .1036362{col 33}{space 2} .0695039{col 44}{space 1}    1.49{col 53}{space 3}0.136{col 61}{space 4}-.0326051{col 74}{space 3} .2398775
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 12.86683{col 33}{space 2}  .071557{col 44}{space 1}  179.81{col 53}{space 3}0.000{col 61}{space 4} 12.72656{col 74}{space 3}  13.0071
+{txt}{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+                 ij {c |}   absorbed                                    (1956 categories)
+
+{com}. use "/Users/apple/Downloads/all.country.export.storm.dta", clear
+{txt}(Written by R)
+
+{com}. areg values i.year major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10, absorb(iso) vce(robust) 
+{res}
+{txt}Linear regression, absorbing indicators{col 49}Number of obs{col 67}= {res}     2,705
+{txt}{col 49}F({res}  23{txt},{res}   2454{txt}){col 67}= {res}     45.66
+{txt}{col 49}Prob > F{col 67}= {res}    0.0000
+{txt}{col 49}R-squared{col 67}= {res}    0.8640
+{txt}{col 49}Adj R-squared{col 67}= {res}    0.8501
+{txt}{col 49}Root MSE{col 67}= {res}    1.2920
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 21}{c |}{col 33}    Robust
+{col 1}             values{col 21}{c |}      Coef.{col 33}   Std. Err.{col 45}      t{col 53}   P>|t|{col 61}     [95% Con{col 74}f. Interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}year {c |}
+{space 14}2001  {c |}{col 21}{res}{space 2} .8964836{col 33}{space 2} .1501703{col 44}{space 1}    5.97{col 53}{space 3}0.000{col 61}{space 4} .6020101{col 74}{space 3} 1.190957
+{txt}{space 14}2002  {c |}{col 21}{res}{space 2} .8415751{col 33}{space 2} .1469329{col 44}{space 1}    5.73{col 53}{space 3}0.000{col 61}{space 4} .5534498{col 74}{space 3}   1.1297
+{txt}{space 14}2003  {c |}{col 21}{res}{space 2} 1.237946{col 33}{space 2} .1431468{col 44}{space 1}    8.65{col 53}{space 3}0.000{col 61}{space 4} .9572452{col 74}{space 3} 1.518647
+{txt}{space 14}2004  {c |}{col 21}{res}{space 2} 1.505216{col 33}{space 2} .1422144{col 44}{space 1}   10.58{col 53}{space 3}0.000{col 61}{space 4} 1.226344{col 74}{space 3} 1.784089
+{txt}{space 14}2005  {c |}{col 21}{res}{space 2} 1.715202{col 33}{space 2} .1461919{col 44}{space 1}   11.73{col 53}{space 3}0.000{col 61}{space 4}  1.42853{col 74}{space 3} 2.001874
+{txt}{space 14}2006  {c |}{col 21}{res}{space 2} 2.011828{col 33}{space 2} .1372805{col 44}{space 1}   14.65{col 53}{space 3}0.000{col 61}{space 4} 1.742631{col 74}{space 3} 2.281026
+{txt}{space 14}2007  {c |}{col 21}{res}{space 2} 2.034688{col 33}{space 2} .1494529{col 44}{space 1}   13.61{col 53}{space 3}0.000{col 61}{space 4} 1.741621{col 74}{space 3} 2.327755
+{txt}{space 14}2008  {c |}{col 21}{res}{space 2} 2.169105{col 33}{space 2} .1479071{col 44}{space 1}   14.67{col 53}{space 3}0.000{col 61}{space 4}  1.87907{col 74}{space 3} 2.459141
+{txt}{space 14}2009  {c |}{col 21}{res}{space 2} 1.866148{col 33}{space 2} .1454969{col 44}{space 1}   12.83{col 53}{space 3}0.000{col 61}{space 4} 1.580839{col 74}{space 3} 2.151457
+{txt}{space 14}2010  {c |}{col 21}{res}{space 2} .5600971{col 33}{space 2} .1685369{col 44}{space 1}    3.32{col 53}{space 3}0.001{col 61}{space 4} .2296078{col 74}{space 3} .8905865
+{txt}{space 14}2011  {c |}{col 21}{res}{space 2}-.4112136{col 33}{space 2} .1719058{col 44}{space 1}   -2.39{col 53}{space 3}0.017{col 61}{space 4}-.7483091{col 74}{space 3}-.0741182
+{txt}{space 14}2012  {c |}{col 21}{res}{space 2}-.4603802{col 33}{space 2} .1761311{col 44}{space 1}   -2.61{col 53}{space 3}0.009{col 61}{space 4}-.8057611{col 74}{space 3}-.1149994
+{txt}{space 19} {c |}
+major_storm_all_c~y {c |}{col 21}{res}{space 2}-.1783828{col 33}{space 2} .1502142{col 44}{space 1}   -1.19{col 53}{space 3}0.235{col 61}{space 4}-.4729424{col 74}{space 3} .1161768
+{txt}{space 17}l1 {c |}{col 21}{res}{space 2}-.1408763{col 33}{space 2} .1240736{col 44}{space 1}   -1.14{col 53}{space 3}0.256{col 61}{space 4}-.3841761{col 74}{space 3} .1024235
+{txt}{space 17}l2 {c |}{col 21}{res}{space 2} .0806838{col 33}{space 2} .1337097{col 44}{space 1}    0.60{col 53}{space 3}0.546{col 61}{space 4}-.1815117{col 74}{space 3} .3428793
+{txt}{space 17}l3 {c |}{col 21}{res}{space 2}-.2354142{col 33}{space 2} .1531593{col 44}{space 1}   -1.54{col 53}{space 3}0.124{col 61}{space 4}-.5357491{col 74}{space 3} .0649207
+{txt}{space 17}l4 {c |}{col 21}{res}{space 2}-.4256085{col 33}{space 2} .1763466{col 44}{space 1}   -2.41{col 53}{space 3}0.016{col 61}{space 4}-.7714121{col 74}{space 3} -.079805
+{txt}{space 17}l5 {c |}{col 21}{res}{space 2}-.0974512{col 33}{space 2} .1506794{col 44}{space 1}   -0.65{col 53}{space 3}0.518{col 61}{space 4}-.3929233{col 74}{space 3} .1980208
+{txt}{space 17}l6 {c |}{col 21}{res}{space 2}-.1641124{col 33}{space 2} .1434126{col 44}{space 1}   -1.14{col 53}{space 3}0.253{col 61}{space 4}-.4453347{col 74}{space 3} .1171098
+{txt}{space 17}l7 {c |}{col 21}{res}{space 2}-.2856015{col 33}{space 2}  .139078{col 44}{space 1}   -2.05{col 53}{space 3}0.040{col 61}{space 4}-.5583239{col 74}{space 3}-.0128791
+{txt}{space 17}l8 {c |}{col 21}{res}{space 2}-.0871659{col 33}{space 2} .1278327{col 44}{space 1}   -0.68{col 53}{space 3}0.495{col 61}{space 4}-.3378371{col 74}{space 3} .1635053
+{txt}{space 17}l9 {c |}{col 21}{res}{space 2}-.1469429{col 33}{space 2} .1476963{col 44}{space 1}   -0.99{col 53}{space 3}0.320{col 61}{space 4}-.4365653{col 74}{space 3} .1426795
+{txt}{space 16}l10 {c |}{col 21}{res}{space 2}-.0389873{col 33}{space 2} .1331139{col 44}{space 1}   -0.29{col 53}{space 3}0.770{col 61}{space 4}-.3000145{col 74}{space 3} .2220398
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 15.08404{col 33}{space 2} .1287653{col 44}{space 1}  117.14{col 53}{space 3}0.000{col 61}{space 4} 14.83154{col 74}{space 3} 15.33654
+{txt}{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+                iso {c |}   absorbed                                     (228 categories)
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/apple/360yunpan/DaveDonaldson/cycloneDave/log/0611meeting.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}17 Jun 2016, 02:31:22
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
