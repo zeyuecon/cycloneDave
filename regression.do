@@ -70,7 +70,45 @@ unique ij
 
 // regress on indicator variable and lags of major storm status
 areg values major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10 i.it, absorb(ij)
+
 // regress on indicator variable and lags of major storm status, fixed year effect and ij
 areg values i.year major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10, absorb(ij)
+
 //regress on max wind speed, pdi, major storm indicators and its lags
 areg values max_windspeed_all_country PDI_all_country_total major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10 i.it, absorb(ij)
+
+// collapse by i and t to form a X_it value and so on.
+
+collapse values major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10, by(iso year)
+// ln X_it = alpha_t + alpha_i + sum(beta_i times major_wind and its lags)
+areg values major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10 i.year, absorb(iso)
+
+
+
+
+
+
+
+
+
+
+
+
+//import and export data
+use "/Users/apple/360yunpan/DaveDonaldson/0511/data.firm.level.0515.dta", clear
+egen id = group(newf iso)
+
+// form a X_fti based data with varible: major_storm_all_country and its lags, export values.
+collapse log_values major_storm_all_country l1 l2 l3 l4 l5 l6 l7 l8 l9 l10, by(id year iso)
+
+//run regression: ln X_ift = alpha_f + alpha_i + alpha_t + sum(beta_i * wind_it)
+reghdfe log_values i.year major_storm_all_country l1 l2 l3 l4 l5 , absorb(iso_ id)
+
+
+
+
+
+
+
+
+
