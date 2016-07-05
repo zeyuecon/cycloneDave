@@ -1,0 +1,22 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/apple/360yunpan/DaveDonaldson/cycloneDave/code/summer_work/log_test.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 4 Jul 2016, 02:32:40
+
+{com}. use "/Users/apple/360yunpan/DaveDonaldson/0511/data.firm.level.0515.dta"
+{txt}(Written by R)
+
+{com}. unique(newf )
+{txt}Number of unique values of newf is  {res}235516
+{txt}Number of records is  {res}1371094
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/apple/360yunpan/DaveDonaldson/cycloneDave/code/summer_work/log_test.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 4 Jul 2016, 13:13:32
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
