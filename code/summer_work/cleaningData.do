@@ -26,10 +26,13 @@ drop unsdcode
  
  use "/Users/apple/360yunpan/DaveDonaldson/2016summer/exporter_data_unique_firm.dta", clear
 sort destination year
-save, replace
 use "/Users/apple/360yunpan/DaveDonaldson/2016summer/Storm_measures_1990_2014_all_countries.dta", clear
 sort destination year
-merge destination year using "/Users/apple/360yunpan/DaveDonaldson/2016summer/exporter_data_unique_firm.dta"
+merge 1:m destination year using "/Users/apple/360yunpan/DaveDonaldson/2016summer/exporter_data_unique_firm.dta"
+keep if _m == 3
+drop _m
+ save "/Users/apple/360yunpan/DaveDonaldson/2016summer/stata_merged_ready_cyclone.dta"
+
 
 // go to R to merge with year and destination.
 use "/Users/apple/360yunpan/DaveDonaldson/2016summer/cleaned_unique_firm_exporter_storm_all_country_0703.dta", clear
